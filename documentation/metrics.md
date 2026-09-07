@@ -109,6 +109,8 @@ Formula:
 
 ## Monthly Trend Metrics
 
+Monthly trend reporting includes completed calendar months only. The current incomplete month is excluded to prevent misleading comparisons.
+
 ### Previous Month Revenue
 
 The recognized revenue from the preceding monthly row.

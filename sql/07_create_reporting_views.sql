@@ -25,6 +25,7 @@ WITH monthly_metrics AS (
   FROM `bigquery-public-data.thelook_ecommerce.order_items`
   WHERE status = 'Complete'
     AND delivered_at IS NOT NULL
+    AND DATE(delivered_at) < DATE_TRUNC(CURRENT_DATE(), MONTH)
   GROUP BY revenue_month
 ),
 

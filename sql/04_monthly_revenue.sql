@@ -2,6 +2,7 @@
 -- Grain: one row per delivery month.
 -- Business rule: Recognized revenue includes only completed items
 -- and is assigned to the month in which they were delivered.
+-- The current incomplete calendar month is excluded.
 
 WITH monthly_revenue AS (
   SELECT
@@ -20,6 +21,7 @@ WITH monthly_revenue AS (
   FROM `bigquery-public-data.thelook_ecommerce.order_items`
   WHERE status = 'Complete'
     AND delivered_at IS NOT NULL
+    AND DATE(delivered_at) < DATE_TRUNC(CURRENT_DATE(), MONTH)
   GROUP BY revenue_month
 ),
 
