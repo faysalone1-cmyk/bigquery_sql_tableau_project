@@ -209,3 +209,4 @@ Formula:
 - `sql/04_monthly_revenue.sql`
 - `sql/05_category_performance.sql`
 - `sql/06_customer_behavior.sql`
+- `sql/07_create_reporting_views.sql`
