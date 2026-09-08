@@ -79,6 +79,7 @@ WITH category_metrics AS (
     ON oi.product_id = p.id
   WHERE oi.status = 'Complete'
     AND oi.delivered_at IS NOT NULL
+    AND DATE(oi.delivered_at) < DATE_TRUNC(CURRENT_DATE(), MONTH)
   GROUP BY p.category
 )
 
@@ -122,6 +123,7 @@ WITH completed_orders AS (
   FROM `bigquery-public-data.thelook_ecommerce.order_items`
   WHERE status = 'Complete'
     AND delivered_at IS NOT NULL
+    AND DATE(delivered_at) < DATE_TRUNC(CURRENT_DATE(), MONTH)
   GROUP BY
     user_id,
     order_id

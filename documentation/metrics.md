@@ -107,9 +107,11 @@ Formula:
 
 `estimated gross profit / recognized revenue × 100`
 
-## Monthly Trend Metrics
+## Reporting Period
 
-Monthly trend reporting includes completed calendar months only. The current incomplete month is excluded to prevent misleading comparisons.
+All reporting views include completed calendar months only. The current incomplete month is excluded so monthly revenue, category performance, and customer segment metrics use the same reporting period.
+
+## Monthly Trend Metrics
 
 ### Previous Month Revenue
 

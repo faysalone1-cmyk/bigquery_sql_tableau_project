@@ -30,6 +30,7 @@ WITH category_performance AS (
     ON oi.product_id = p.id
   WHERE oi.status = 'Complete'
     AND oi.delivered_at IS NOT NULL
+    AND DATE(oi.delivered_at) < DATE_TRUNC(CURRENT_DATE(), MONTH)
   GROUP BY p.category
 )
 

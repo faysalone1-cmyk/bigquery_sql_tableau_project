@@ -16,7 +16,8 @@ WITH completed_orders AS (
     SUM(CAST(sale_price AS NUMERIC)) AS order_revenue
   FROM `bigquery-public-data.thelook_ecommerce.order_items`
   WHERE status = 'Complete'
-  AND delivered_at IS NOT NULL
+    AND delivered_at IS NOT NULL
+    AND DATE(delivered_at) < DATE_TRUNC(CURRENT_DATE(), MONTH)
   GROUP BY
     user_id,
     order_id
