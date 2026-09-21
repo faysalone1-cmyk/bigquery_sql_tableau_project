@@ -11,6 +11,8 @@ An end-to-end analytics portfolio project using BigQuery, GoogleSQL, Tableau, an
 This project explores:
 
 - How has recognized revenue changed over time?
+- How is revenue changing month over month and year over year?
+- What do the rolling 3-month and 12-month revenue trends show?
 - Which product categories generate the most revenue?
 - How many orders have been completed?
 - What is the overall average order value?
@@ -47,7 +49,9 @@ The dashboard only includes completed delivery months, preventing incomplete cur
 ├── documentation/
 │   ├── images/
 │   │   └── ecommerce_performance_dashboard.png
-│   └── metrics.md
+│   ├── deeper_insights_audit.md
+│   ├── metrics.md
+│   └── revenue_growth_validation.md
 ├── sql/
 │   ├── 01_basic_queries.sql
 │   ├── 02_orders_overview.sql
@@ -56,7 +60,12 @@ The dashboard only includes completed delivery months, preventing incomplete cur
 │   ├── 05_category_performance.sql
 │   ├── 06_customer_behavior.sql
 │   ├── 07_create_reporting_views.sql
-│   └── 08_validate_reporting_views.sql
+│   ├── 08_validate_reporting_views.sql
+│   ├── 09_deeper_insights_data_audit.sql
+│   ├── 10_monthly_revenue_growth.sql
+│   ├── 11_validate_monthly_revenue_growth.sql
+│   ├── 12_create_monthly_revenue_growth_view.sql
+│   └── 13_validate_monthly_revenue_growth_view.sql
 ├── Tableau/
 │   └── ecommerce_analytics_dashboard.twb
 ├── .gitignore
@@ -86,6 +95,8 @@ bigquery-analyst-practice.thelook_practice
 ## Metric Definitions
 
 Detailed metric definitions and business rules are available in [`documentation/metrics.md`](documentation/metrics.md).
+
+The source-data audit is recorded in [`documentation/deeper_insights_audit.md`](documentation/deeper_insights_audit.md), and the revenue-growth checks are recorded in [`documentation/revenue_growth_validation.md`](documentation/revenue_growth_validation.md).
 
 ## Tableau Workbook
 

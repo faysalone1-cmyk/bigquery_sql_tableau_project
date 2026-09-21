@@ -141,6 +141,54 @@ Formula:
 
 The SQL uses `SAFE_DIVIDE` to prevent division-by-zero errors.
 
+### Year-over-Year Revenue Change
+
+The absolute change in recognized revenue compared with the same calendar month
+one year earlier.
+
+Formula:
+
+`current month revenue - revenue 12 months earlier`
+
+### Year-over-Year Growth Percentage
+
+The percentage change in recognized revenue compared with the same calendar
+month one year earlier.
+
+Formula:
+
+`(current month revenue - revenue 12 months earlier) / revenue 12 months earlier × 100`
+
+The first 12 months are `NULL` because no prior-year comparison exists.
+
+### Rolling 3-Month Revenue
+
+The sum of recognized revenue for the current calendar month and the preceding
+two calendar months. The first two rows are `NULL` until a complete three-month
+window exists.
+
+### Rolling 3-Month Average Revenue
+
+The rolling 3-month revenue divided by three.
+
+### Rolling 12-Month Revenue
+
+The sum of recognized revenue for the current calendar month and the preceding
+11 calendar months. The first 11 rows are `NULL` until a complete 12-month
+window exists.
+
+### Rolling 12-Month Average Revenue
+
+The rolling 12-month revenue divided by 12.
+
+### Calendar Continuity
+
+The monthly revenue growth view generates a calendar containing every month
+between the first and latest completed delivery month. Months with no completed
+activity receive zero orders, zero items, and zero recognized revenue. This
+ensures that month-over-month, year-over-year, and rolling calculations use
+calendar periods rather than merely the previous available data row.
+
 ## Category Comparison Metrics
 
 ### Revenue Rank
@@ -202,7 +250,8 @@ Formula:
 - Order counts calculated separately by category must not be added together because one order can contain products from multiple categories.
 - Item counts, revenue, and estimated gross profit can be added across mutually exclusive product categories.
 - Customer segmentation includes all registered users because the analysis starts with the `users` table and uses a left join.
-- Monthly comparisons use the previous available row. If a calendar month is missing from the results, it would compare against the previous available month rather than automatically creating the missing month.
+- The `monthly_revenue_growth` view generates missing calendar months before applying window functions, so monthly comparisons always use consecutive calendar periods.
+- Growth percentages should be interpreted together with absolute revenue changes. A small comparison-period revenue base can produce a large percentage movement.
 - Financial values are converted to BigQuery `NUMERIC` before aggregation to reduce floating-point precision issues.
 - These definitions are project assumptions and should be confirmed with business stakeholders in a production environment.
 
@@ -214,3 +263,8 @@ Formula:
 - `sql/05_category_performance.sql`
 - `sql/06_customer_behavior.sql`
 - `sql/07_create_reporting_views.sql`
+- `sql/09_deeper_insights_data_audit.sql`
+- `sql/10_monthly_revenue_growth.sql`
+- `sql/11_validate_monthly_revenue_growth.sql`
+- `sql/12_create_monthly_revenue_growth_view.sql`
+- `sql/13_validate_monthly_revenue_growth_view.sql`
