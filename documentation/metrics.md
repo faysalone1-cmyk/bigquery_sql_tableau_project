@@ -211,6 +211,32 @@ Formula:
 
 The revenue-share percentages across all categories should total approximately `100%`. Small differences can occur because displayed values are rounded.
 
+## Product Performance Metrics
+
+The `product_performance` view has one row per sold product ID. Product names
+are labels, not unique identifiers. It uses the same completed-delivery and
+finished-month rules as the revenue and category views.
+
+- `completed_orders` counts distinct orders containing the product. Do not sum
+  this field across products: one order can contain multiple products.
+- `completed_items`, `recognized_revenue`, `estimated_product_cost`, and
+  `estimated_gross_profit` can be added across product rows.
+- `overall_revenue_rank` and `category_revenue_rank` rank products by recognized
+  revenue across all products and within each category, respectively. Ties
+  share a rank.
+- `estimated_gross_margin_pct` is estimated gross profit divided by product
+  recognized revenue, multiplied by 100.
+- `total_revenue_share_pct` is product revenue divided by all-product revenue,
+  multiplied by 100.
+- `category_revenue_share_pct` is product revenue divided by revenue from its
+  category, multiplied by 100.
+
+Cost comes from the current product record, not a historical cost ledger, so
+estimated gross profit is not realized net profit and can change if source
+costs change. Additive money fields are stored unrounded in the view; format
+them to two decimal places for display. Percentage fields are rounded to two
+decimal places and should not be summed.
+
 ## Customer Segments
 
 Customer segments are based on the number of distinct completed orders associated with each registered customer.
@@ -309,3 +335,8 @@ active months.
 - `sql/17_validate_customer_retention_cohorts.sql`
 - `sql/18_create_customer_retention_view.sql`
 - `sql/19_validate_customer_retention_view.sql`
+- `sql/20_product_category_foundation.sql`
+- `sql/21_product_performance.sql`
+- `sql/22_validate_product_performance.sql`
+- `sql/23_create_product_performance_view.sql`
+- `sql/24_validate_product_performance_view.sql`

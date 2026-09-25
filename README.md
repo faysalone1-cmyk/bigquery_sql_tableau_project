@@ -14,6 +14,7 @@ This project explores:
 - How is revenue changing month over month and year over year?
 - What do the rolling 3-month and 12-month revenue trends show?
 - Which product categories generate the most revenue?
+- Which individual products lead revenue and estimated gross profit?
 - How many orders have been completed?
 - What is the overall average order value?
 - What is the estimated gross margin?
@@ -30,13 +31,15 @@ The dashboard only includes completed delivery months, preventing incomplete cur
 
 ## Deeper Insights SQL
 
-The validated BigQuery views now include monthly revenue growth and customer
-retention cohorts. The current dashboard preview remains the original
+The validated BigQuery views now include monthly revenue growth, customer
+retention cohorts, and product performance. The current dashboard preview remains the original
 performance dashboard; these newer views are ready for future Tableau pages.
 
 - `monthly_revenue_growth`: monthly, yearly, and rolling revenue comparisons.
 - `customer_retention_cohorts`: first-purchase cohorts and retention across
   elapsed months 0–12.
+- `product_performance`: product-level revenue, estimated gross profit, margin,
+  category rank, and contribution to revenue.
 
 ## Dashboard Views
 
@@ -62,7 +65,8 @@ performance dashboard; these newer views are ready for future Tableau pages.
 │   ├── deeper_insights_audit.md
 │   ├── metrics.md
 │   ├── revenue_growth_validation.md
-│   └── customer_retention_notes.md
+│   ├── customer_retention_notes.md
+│   └── product_category_notes.md
 ├── sql/
 │   ├── 01_basic_queries.sql
 │   ├── 02_orders_overview.sql
@@ -82,7 +86,12 @@ performance dashboard; these newer views are ready for future Tableau pages.
 │   ├── 16_customer_retention_cohorts.sql
 │   ├── 17_validate_customer_retention_cohorts.sql
 │   ├── 18_create_customer_retention_view.sql
-│   └── 19_validate_customer_retention_view.sql
+│   ├── 19_validate_customer_retention_view.sql
+│   ├── 20_product_category_foundation.sql
+│   ├── 21_product_performance.sql
+│   ├── 22_validate_product_performance.sql
+│   ├── 23_create_product_performance_view.sql
+│   └── 24_validate_product_performance_view.sql
 ├── Tableau/
 │   └── ecommerce_analytics_dashboard.twb
 ├── .gitignore
@@ -118,6 +127,9 @@ The source-data audit is recorded in [`documentation/deeper_insights_audit.md`](
 Customer cohort definitions, the changing-source finding, and validation
 results are recorded in
 [`documentation/customer_retention_notes.md`](documentation/customer_retention_notes.md).
+
+Product and category checks, modelling decisions, and deployment results are
+recorded in [`documentation/product_category_notes.md`](documentation/product_category_notes.md).
 
 ## Tableau Workbook
 
