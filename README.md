@@ -28,6 +28,16 @@ This project explores:
 
 The dashboard only includes completed delivery months, preventing incomplete current-month data from distorting the results.
 
+## Deeper Insights SQL
+
+The validated BigQuery views now include monthly revenue growth and customer
+retention cohorts. The current dashboard preview remains the original
+performance dashboard; these newer views are ready for future Tableau pages.
+
+- `monthly_revenue_growth`: monthly, yearly, and rolling revenue comparisons.
+- `customer_retention_cohorts`: first-purchase cohorts and retention across
+  elapsed months 0–12.
+
 ## Dashboard Views
 
 - Monthly recognized revenue trend
@@ -51,7 +61,8 @@ The dashboard only includes completed delivery months, preventing incomplete cur
 │   │   └── ecommerce_performance_dashboard.png
 │   ├── deeper_insights_audit.md
 │   ├── metrics.md
-│   └── revenue_growth_validation.md
+│   ├── revenue_growth_validation.md
+│   └── customer_retention_notes.md
 ├── sql/
 │   ├── 01_basic_queries.sql
 │   ├── 02_orders_overview.sql
@@ -65,7 +76,13 @@ The dashboard only includes completed delivery months, preventing incomplete cur
 │   ├── 10_monthly_revenue_growth.sql
 │   ├── 11_validate_monthly_revenue_growth.sql
 │   ├── 12_create_monthly_revenue_growth_view.sql
-│   └── 13_validate_monthly_revenue_growth_view.sql
+│   ├── 13_validate_monthly_revenue_growth_view.sql
+│   ├── 14_customer_retention_foundation.sql
+│   ├── 15_validate_first_customer_cohort_month.sql
+│   ├── 16_customer_retention_cohorts.sql
+│   ├── 17_validate_customer_retention_cohorts.sql
+│   ├── 18_create_customer_retention_view.sql
+│   └── 19_validate_customer_retention_view.sql
 ├── Tableau/
 │   └── ecommerce_analytics_dashboard.twb
 ├── .gitignore
@@ -97,6 +114,10 @@ bigquery-analyst-practice.thelook_practice
 Detailed metric definitions and business rules are available in [`documentation/metrics.md`](documentation/metrics.md).
 
 The source-data audit is recorded in [`documentation/deeper_insights_audit.md`](documentation/deeper_insights_audit.md), and the revenue-growth checks are recorded in [`documentation/revenue_growth_validation.md`](documentation/revenue_growth_validation.md).
+
+Customer cohort definitions, the changing-source finding, and validation
+results are recorded in
+[`documentation/customer_retention_notes.md`](documentation/customer_retention_notes.md).
 
 ## Tableau Workbook
 

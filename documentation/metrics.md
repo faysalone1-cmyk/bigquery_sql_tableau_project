@@ -245,6 +245,41 @@ Formula:
 
 `segment recognized revenue / customers in the segment`
 
+## Customer Retention Cohorts
+
+The `customer_retention_cohorts` view groups customers by the first completed
+delivery month in which they made a qualifying purchase. Its grain is one row
+per cohort month and elapsed calendar month from 0 through 12.
+
+### Qualifying Monthly Activity
+
+A customer is active in a month if at least one order item has
+`status = 'Complete'`, a non-null `delivered_at`, and a delivery date in that
+completed calendar month. Multiple qualifying items or orders in the same
+month count as one active customer.
+
+### Cohort Size
+
+The number of distinct customers whose first qualifying month is the cohort
+month. This denominator stays constant for every elapsed month in that cohort.
+
+### Active Customers
+
+The number of cohort customers with qualifying activity in a particular
+elapsed calendar month. Month 0 equals cohort size. Months with no activity
+are represented with zero, while future and incomplete months have no row.
+
+### Monthly Retention Percentage
+
+Formula:
+
+`active customers in elapsed month / original cohort size × 100`
+
+Month 0 is 100%. A customer may return after an inactive month, so later
+retention percentages need not decline monotonically. This metric differs from
+the `Repeat customer` segment, which counts completed orders rather than
+active months.
+
 ## Interpretation Rules
 
 - Order counts calculated separately by category must not be added together because one order can contain products from multiple categories.
@@ -268,3 +303,9 @@ Formula:
 - `sql/11_validate_monthly_revenue_growth.sql`
 - `sql/12_create_monthly_revenue_growth_view.sql`
 - `sql/13_validate_monthly_revenue_growth_view.sql`
+- `sql/14_customer_retention_foundation.sql`
+- `sql/15_validate_first_customer_cohort_month.sql`
+- `sql/16_customer_retention_cohorts.sql`
+- `sql/17_validate_customer_retention_cohorts.sql`
+- `sql/18_create_customer_retention_view.sql`
+- `sql/19_validate_customer_retention_view.sql`
