@@ -308,6 +308,22 @@ active months.
 
 ## Interpretation Rules
 
+### Monthly Order Status
+
+The `monthly_order_status` view has one row per completed calendar month of
+order creation. Counts describe the currently recorded status, not status
+at the end of that historical month. All orders created in the month form
+the denominator for each Cancelled, Returned, and Complete percentage.
+
+`currently_open_orders` is Processing plus Shipped. This field is not a
+verified live backlog: even old orders may retain these source statuses.
+Missing calendar months have zero counts and null percentages. Aggregate
+shares across months must be recalculated from summed counts, not averaged
+from the monthly percentages. These order counts use a different date basis
+from recognized revenue and must not be equated with delivered-order counts.
+
+### General Rules
+
 - Order counts calculated separately by category must not be added together because one order can contain products from multiple categories.
 - Item counts, revenue, and estimated gross profit can be added across mutually exclusive product categories.
 - Customer segmentation includes all registered users because the analysis starts with the `users` table and uses a left join.
@@ -340,3 +356,8 @@ active months.
 - `sql/22_validate_product_performance.sql`
 - `sql/23_create_product_performance_view.sql`
 - `sql/24_validate_product_performance_view.sql`
+- `sql/25_order_operations_foundation.sql`
+- `sql/26_monthly_order_status_preview.sql`
+- `sql/27_validate_monthly_order_status.sql`
+- `sql/28_create_monthly_order_status_view.sql`
+- `sql/29_validate_monthly_order_status_view.sql`

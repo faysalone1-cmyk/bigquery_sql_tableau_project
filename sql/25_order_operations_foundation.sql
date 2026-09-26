@@ -77,3 +77,4 @@ SELECT
     AS current_complete_share_pct
 FROM source_checks AS s
 CROSS JOIN eligible_checks AS e;
+    
