@@ -322,7 +322,30 @@ shares across months must be recalculated from summed counts, not averaged
 from the monthly percentages. These order counts use a different date basis
 from recognized revenue and must not be equated with delivered-order counts.
 
-### General Rules
+### Monthly Order Durations
+
+The `monthly_order_durations` view has one row per duration type and observed
+completed end-event month. Shipping-to-delivery uses Complete and Returned
+orders grouped by delivery month. Delivery-to-return uses Returned orders
+grouped by return month. Missing end dates cannot be assigned a month and
+are counted separately in the foundation audit.
+
+Valid durations require both timestamps and an end at or after the start.
+Missing starts and reversed timestamps are excluded from timing statistics
+but counted in their end-event month. Elapsed seconds divided by 86,400
+produces fractional calendar days, not business days. Zero durations remain
+included and are counted separately.
+
+`valid_duration_share_pct` is valid-duration orders divided by ended orders,
+multiplied by 100. Calculate combined averages within each duration type as
+`SUM(total_elapsed_days) / SUM(valid_duration_orders)`, not as an average of
+monthly averages. Monthly approximate medians and 90th percentiles cannot
+be aggregated into an overall percentile. Months without events have no row;
+absent timing must not be displayed as zero. These measures do not establish
+lateness or SLA compliance. An order may contribute to both duration types,
+so their counts must not be added to obtain unique orders.
+
+### General Interpretation Rules
 
 - Order counts calculated separately by category must not be added together because one order can contain products from multiple categories.
 - Item counts, revenue, and estimated gross profit can be added across mutually exclusive product categories.
@@ -361,3 +384,8 @@ from recognized revenue and must not be equated with delivered-order counts.
 - `sql/27_validate_monthly_order_status.sql`
 - `sql/28_create_monthly_order_status_view.sql`
 - `sql/29_validate_monthly_order_status_view.sql`
+- `sql/30_order_duration_foundation.sql`
+- `sql/31_monthly_order_duration_preview.sql`
+- `sql/32_validate_monthly_order_durations.sql`
+- `sql/33_create_monthly_order_durations_view.sql`
+- `sql/34_validate_monthly_order_durations_view.sql`

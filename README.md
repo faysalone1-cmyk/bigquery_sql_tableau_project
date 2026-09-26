@@ -32,7 +32,8 @@ The dashboard only includes completed delivery months, preventing incomplete cur
 ## Deeper Insights SQL
 
 The validated BigQuery views now include monthly revenue growth, customer
-retention cohorts, product performance, and monthly order status. The current dashboard preview remains the original
+retention cohorts, product performance, monthly order status, and order durations.
+The current dashboard preview remains the original
 performance dashboard; these newer views are ready for future Tableau pages.
 
 - `monthly_revenue_growth`: monthly, yearly, and rolling revenue comparisons.
@@ -42,6 +43,8 @@ performance dashboard; these newer views are ready for future Tableau pages.
   category rank, and contribution to revenue.
 - `monthly_order_status`: current recorded status mix by order creation month,
   with explicitly defined cancellation and return shares.
+- `monthly_order_durations`: monthly shipping-to-delivery and delivery-to-return
+  timing, with valid sample sizes and excluded-record counts.
 
 ## Dashboard Views
 
@@ -99,7 +102,12 @@ performance dashboard; these newer views are ready for future Tableau pages.
 │   ├── 26_monthly_order_status_preview.sql
 │   ├── 27_validate_monthly_order_status.sql
 │   ├── 28_create_monthly_order_status_view.sql
-│   └── 29_validate_monthly_order_status_view.sql
+│   ├── 29_validate_monthly_order_status_view.sql
+│   ├── 30_order_duration_foundation.sql
+│   ├── 31_monthly_order_duration_preview.sql
+│   ├── 32_validate_monthly_order_durations.sql
+│   ├── 33_create_monthly_order_durations_view.sql
+│   └── 34_validate_monthly_order_durations_view.sql
 ├── Tableau/
 │   └── ecommerce_analytics_dashboard.twb
 ├── .gitignore

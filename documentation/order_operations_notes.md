@@ -86,3 +86,55 @@ were zero and all three final Boolean checks were `true`.
 The monthly status reporting component is deployed and validated. Delivery
 and return-duration analysis remains separate work; these status checks do
 not validate operational durations or service-level performance.
+
+## Duration Foundation — 2026-09-26
+
+Script 30 checked order-level event pairs and returned the following results.
+
+| Measure | Shipping to delivery | Delivery to return |
+|---|---:|---:|
+| Candidate orders | 44,017 | 12,524 |
+| Current/future end-month exclusions | 3,510 | 1,044 |
+| Valid duration orders | 40,507 | 11,480 |
+| Missing end dates | 0 | 0 |
+| Missing start dates among completed end-month candidates | 0 | 0 |
+| Reversed timestamps among completed end-month candidates | 0 | 0 |
+| Zero-duration orders | 11 | 2 |
+| Average calendar days | 2.50 | 1.50 |
+| Approximate median days | 2.50 | 1.49 |
+| Approximate 90th-percentile days | 4.50 | 2.70 |
+| Maximum days | 5.00 | 3.00 |
+
+Both uniqueness and candidate-accounting checks were true. Valid deliveries
+span 2019-01-18 through 2026-08-31; valid returns span 2019-01-19 through
+2026-08-31. Zero-duration records are retained and disclosed, not treated as
+automatic errors. These observed durations are not evidence of SLA compliance.
+
+Script 31 previews timing by completed end-event month. Months without end
+events have no row; missing timing must not be converted to zero. The overall
+average across months must use summed elapsed days divided by summed valid
+orders, not an unweighted average of monthly averages. Monthly medians and
+90th percentiles cannot be combined into a correct overall percentile.
+
+## Monthly Duration Validation — 2026-09-26
+
+Script 32 returned 91 unique observed months for each duration type, spanning
+January 2019 through August 2026. Missing calendar months with no end events
+are intentionally omitted. There were no missing or extra months relative to
+the source event populations.
+
+Valid-order totals matched the source: 11,480 delivery-to-return orders and
+40,507 shipping-to-delivery orders. Every exception count was zero, including
+source counts, accounting, coverage, averages, elapsed totals, and duration
+summary bounds. These checks do not establish exact percentile accuracy.
+
+## Deployed Duration View — 2026-09-26
+
+`bigquery-analyst-practice.thelook_practice.monthly_order_durations` was
+deployed using script 33. Script 34 confirmed 91 unique observed months for
+each duration type, spanning January 2019 through August 2026. Valid-order
+totals matched the source: 11,480 delivery-to-return orders and 40,507
+shipping-to-delivery orders. Every exception count was zero.
+
+Both monthly order-status and order-duration reporting views are deployed
+and have passed their documented checks. Tableau integration remains pending.
